@@ -97,3 +97,6 @@
 {"ts": 1756886961, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 476, "duration_s": 20.871918201446533, "extra": {"return": 223.4186166522084}}
 {"ts": 1756886972, "game": "LunarLander", "episode": 1, "percent": 18.852075847002876, "steps": 263, "duration_s": 11.001339197158813, "extra": {"return": -43.443772458991376}}
 {"ts": 1756886993, "game": "LunarLander", "episode": 1, "percent": 95.92217375125131, "steps": 487, "duration_s": 20.388636827468872, "extra": {"return": 187.76652125375392}}
+{"ts": 1756889085, "game": "LunarLander", "episode": 1, "percent": 96.63896715106227, "steps": 373, "duration_s": 15.650428056716919, "extra": {"return": 189.91690145318682}}
+{"ts": 1756889100, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 341, "duration_s": 14.287008047103882, "extra": {"return": 239.51435889066076}}
+{"ts": 1756889142, "game": "LunarLander", "episode": 1, "percent": 71.3611398841225, "steps": 1000, "duration_s": 41.85748815536499, "extra": {"return": 114.08341965236747}}
