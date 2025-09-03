@@ -10,7 +10,6 @@ CUR_FILE = LOG_DIR / "current.json"
 def _ensure():
     LOG_DIR.mkdir(parents=True, exist_ok=True)
 
-
 def push_current(game, percent, extra=None):
     _ensure()
     rec = {
