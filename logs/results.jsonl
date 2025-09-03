@@ -1,0 +1,99 @@
+{"ts": 1756834403, "game": "CartPole", "episode": 1, "percent": 84.44250065088272, "steps": 500, "duration_s": 10.488196849822998, "extra": {}}
+{"ts": 1756834413, "game": "CartPole", "episode": 1, "percent": 87.55833544731139, "steps": 500, "duration_s": 10.490664005279541, "extra": {}}
+{"ts": 1756834424, "game": "CartPole", "episode": 1, "percent": 84.53852000236512, "steps": 500, "duration_s": 10.490004062652588, "extra": {}}
+{"ts": 1756834473, "game": "CartPole", "episode": 1, "percent": 92.41793825626374, "steps": 500, "duration_s": 10.48149299621582, "extra": {}}
+{"ts": 1756834484, "game": "CartPole", "episode": 1, "percent": 91.8307713150978, "steps": 500, "duration_s": 10.48408818244934, "extra": {}}
+{"ts": 1756834494, "game": "CartPole", "episode": 1, "percent": 92.6399396777153, "steps": 500, "duration_s": 10.51072382926941, "extra": {}}
+{"ts": 1756834735, "game": "CartPole", "episode": 1, "percent": 91.0329449057579, "steps": 500, "duration_s": 11.418757915496826, "extra": {}}
+{"ts": 1756834746, "game": "CartPole", "episode": 1, "percent": 92.0516294836998, "steps": 500, "duration_s": 10.508509159088135, "extra": {}}
+{"ts": 1756834756, "game": "CartPole", "episode": 1, "percent": 92.08558602333069, "steps": 500, "duration_s": 10.5000319480896, "extra": {}}
+{"ts": 1756834853, "game": "CartPole", "episode": 1, "percent": 98.55059219598769, "steps": 500, "duration_s": 10.49872088432312, "extra": {}}
+{"ts": 1756834864, "game": "CartPole", "episode": 1, "percent": 98.18830761909484, "steps": 500, "duration_s": 10.483487129211426, "extra": {}}
+{"ts": 1756834875, "game": "CartPole", "episode": 1, "percent": 98.4442372918129, "steps": 500, "duration_s": 10.48878002166748, "extra": {}}
+{"ts": 1756834943, "game": "CartPole", "episode": 1, "percent": 98.39609299898147, "steps": 500, "duration_s": 10.48528003692627, "extra": {}}
+{"ts": 1756834954, "game": "CartPole", "episode": 1, "percent": 97.80850908756256, "steps": 500, "duration_s": 10.484731912612915, "extra": {}}
+{"ts": 1756834964, "game": "CartPole", "episode": 1, "percent": 98.1803635597229, "steps": 500, "duration_s": 10.487981081008911, "extra": {}}
+{"ts": 1756834979, "game": "CartPole", "episode": 1, "percent": 98.00406702756882, "steps": 500, "duration_s": 10.767424821853638, "extra": {}}
+{"ts": 1756834989, "game": "CartPole", "episode": 1, "percent": 98.0609837770462, "steps": 500, "duration_s": 10.467038869857788, "extra": {}}
+{"ts": 1756880730, "game": "CartPole", "episode": 1, "percent": 98.19791169166565, "steps": 500, "duration_s": 10.468042850494385, "extra": {}}
+{"ts": 1756880741, "game": "CartPole", "episode": 1, "percent": 98.36639127731324, "steps": 500, "duration_s": 10.473745107650757, "extra": {}}
+{"ts": 1756880753, "game": "CartPole", "episode": 1, "percent": 98.466668343544, "steps": 500, "duration_s": 11.423156023025513, "extra": {}}
+{"ts": 1756880830, "game": "CartPole", "episode": 1, "percent": 97.58462623357774, "steps": 500, "duration_s": 10.468433856964111, "extra": {}}
+{"ts": 1756880846, "game": "CartPole", "episode": 1, "percent": 98.08241573572158, "steps": 500, "duration_s": 10.474645137786865, "extra": {}}
+{"ts": 1756880862, "game": "CartPole", "episode": 1, "percent": 98.19955290555954, "steps": 500, "duration_s": 10.486130952835083, "extra": {}}
+{"ts": 1756880878, "game": "CartPole", "episode": 1, "percent": 98.1426819205284, "steps": 500, "duration_s": 10.48360013961792, "extra": {}}
+{"ts": 1756880894, "game": "CartPole", "episode": 1, "percent": 98.43018724918366, "steps": 500, "duration_s": 10.467376232147217, "extra": {}}
+{"ts": 1756880910, "game": "CartPole", "episode": 1, "percent": 98.30408843755723, "steps": 500, "duration_s": 10.475564002990723, "extra": {}}
+{"ts": 1756880926, "game": "CartPole", "episode": 1, "percent": 98.22805126905442, "steps": 500, "duration_s": 10.477963209152222, "extra": {}}
+{"ts": 1756880942, "game": "CartPole", "episode": 1, "percent": 98.22899717092514, "steps": 500, "duration_s": 10.478405952453613, "extra": {}}
+{"ts": 1756880958, "game": "CartPole", "episode": 1, "percent": 98.16020764112473, "steps": 500, "duration_s": 10.473416090011597, "extra": {}}
+{"ts": 1756880975, "game": "CartPole", "episode": 1, "percent": 98.1569099664688, "steps": 500, "duration_s": 11.395745038986206, "extra": {}}
+{"ts": 1756881124, "game": "CartPole", "episode": 1, "percent": 97.87655372619629, "steps": 500, "duration_s": 10.48423433303833, "extra": {}}
+{"ts": 1756881138, "game": "CartPole", "episode": 1, "percent": 98.30861891508103, "steps": 500, "duration_s": 10.457998037338257, "extra": {}}
+{"ts": 1756881153, "game": "CartPole", "episode": 1, "percent": 97.79943939447404, "steps": 500, "duration_s": 11.40918517112732, "extra": {}}
+{"ts": 1756881168, "game": "CartPole", "episode": 1, "percent": 98.293891954422, "steps": 500, "duration_s": 11.455834150314331, "extra": {}}
+{"ts": 1756881183, "game": "CartPole", "episode": 1, "percent": 97.78719608783722, "steps": 500, "duration_s": 11.411882877349854, "extra": {}}
+{"ts": 1756881198, "game": "CartPole", "episode": 1, "percent": 98.35656872987747, "steps": 500, "duration_s": 11.392416954040527, "extra": {}}
+{"ts": 1756881212, "game": "CartPole", "episode": 1, "percent": 97.82294890880586, "steps": 500, "duration_s": 10.480002641677856, "extra": {}}
+{"ts": 1756881225, "game": "CartPole", "episode": 1, "percent": 98.23555102348328, "steps": 500, "duration_s": 10.47791576385498, "extra": {}}
+{"ts": 1756881239, "game": "CartPole", "episode": 1, "percent": 97.46264741420745, "steps": 500, "duration_s": 10.477938890457153, "extra": {}}
+{"ts": 1756881253, "game": "CartPole", "episode": 1, "percent": 97.8976582288742, "steps": 500, "duration_s": 10.486563920974731, "extra": {}}
+{"ts": 1756881267, "game": "CartPole", "episode": 1, "percent": 98.33345618247986, "steps": 500, "duration_s": 10.476158857345581, "extra": {}}
+{"ts": 1756881281, "game": "CartPole", "episode": 1, "percent": 98.40314823389053, "steps": 500, "duration_s": 10.478150844573975, "extra": {}}
+{"ts": 1756881295, "game": "CartPole", "episode": 1, "percent": 98.37240203619004, "steps": 500, "duration_s": 10.467426061630249, "extra": {}}
+{"ts": 1756881309, "game": "CartPole", "episode": 1, "percent": 98.29281393289565, "steps": 500, "duration_s": 10.46448802947998, "extra": {}}
+{"ts": 1756881323, "game": "CartPole", "episode": 1, "percent": 98.58111999034882, "steps": 500, "duration_s": 10.46282696723938, "extra": {}}
+{"ts": 1756881337, "game": "CartPole", "episode": 1, "percent": 98.11007471084595, "steps": 500, "duration_s": 10.472480773925781, "extra": {}}
+{"ts": 1756881357, "game": "CartPole", "episode": 1, "percent": 98.16264246702194, "steps": 500, "duration_s": 16.40860104560852, "extra": {}}
+{"ts": 1756882191, "game": "CartPole", "episode": 1, "percent": 97.33773151636123, "steps": 500, "duration_s": 10.467971086502075, "extra": {}}
+{"ts": 1756882202, "game": "CartPole", "episode": 1, "percent": 97.85099370479584, "steps": 500, "duration_s": 10.477039098739624, "extra": {}}
+{"ts": 1756882212, "game": "CartPole", "episode": 1, "percent": 97.76492072343827, "steps": 500, "duration_s": 10.471965074539185, "extra": {}}
+{"ts": 1756882388, "game": "CartPole", "episode": 1, "percent": 97.90272488594056, "steps": 500, "duration_s": 10.482079982757568, "extra": {}}
+{"ts": 1756882399, "game": "CartPole", "episode": 1, "percent": 98.20198233127594, "steps": 500, "duration_s": 11.413132190704346, "extra": {}}
+{"ts": 1756882410, "game": "CartPole", "episode": 1, "percent": 98.30911173820496, "steps": 500, "duration_s": 10.466833114624023, "extra": {}}
+{"ts": 1756883506, "game": "CartPole", "episode": 1, "percent": 98.17373896837235, "steps": 500, "duration_s": 10.478044986724854, "extra": {}}
+{"ts": 1756883516, "game": "CartPole", "episode": 1, "percent": 97.97245081663132, "steps": 500, "duration_s": 10.460791110992432, "extra": {}}
+{"ts": 1756883527, "game": "CartPole", "episode": 1, "percent": 98.34018578529357, "steps": 500, "duration_s": 10.48850703239441, "extra": {}}
+{"ts": 1756883562, "game": "CartPole", "episode": 1, "percent": 98.37675580978393, "steps": 500, "duration_s": 10.48167610168457, "extra": {}}
+{"ts": 1756883573, "game": "CartPole", "episode": 1, "percent": 97.86584343910218, "steps": 500, "duration_s": 10.467790842056274, "extra": {}}
+{"ts": 1756883583, "game": "CartPole", "episode": 1, "percent": 98.07244884967804, "steps": 500, "duration_s": 10.491042137145996, "extra": {}}
+{"ts": 1756883635, "game": "CartPole", "episode": 1, "percent": 97.81587934494019, "steps": 500, "duration_s": 10.482069969177246, "extra": {}}
+{"ts": 1756883646, "game": "CartPole", "episode": 1, "percent": 98.31533824205398, "steps": 500, "duration_s": 10.47844910621643, "extra": {}}
+{"ts": 1756883657, "game": "CartPole", "episode": 1, "percent": 97.83887625932694, "steps": 500, "duration_s": 10.484863996505737, "extra": {}}
+{"ts": 1756883871, "game": "CartPole", "episode": 1, "percent": 97.19790810346603, "steps": 500, "duration_s": 10.476574182510376, "extra": {}}
+{"ts": 1756883881, "game": "CartPole", "episode": 1, "percent": 97.94961626529694, "steps": 500, "duration_s": 10.469048738479614, "extra": {}}
+{"ts": 1756883892, "game": "CartPole", "episode": 1, "percent": 98.13040041923523, "steps": 500, "duration_s": 10.47248888015747, "extra": {}}
+{"ts": 1756884527, "game": "LunarLander", "episode": 1, "percent": 0.0, "steps": 173, "duration_s": 7.255535840988159, "extra": {"return": -1031.7724754735814}}
+{"ts": 1756884540, "game": "LunarLander", "episode": 1, "percent": 0.0, "steps": 304, "duration_s": 12.717426300048828, "extra": {"return": -555.2882636796016}}
+{"ts": 1756884546, "game": "LunarLander", "episode": 1, "percent": 0.0, "steps": 142, "duration_s": 5.942711114883423, "extra": {"return": -713.149055664591}}
+{"ts": 1756885309, "game": "LunarLander", "episode": 1, "percent": 0.2603627143832483, "steps": 587, "duration_s": 24.55932903289795, "extra": {"return": -99.21891185685026}}
+{"ts": 1756885323, "game": "LunarLander", "episode": 1, "percent": 4.6364663924020615, "steps": 349, "duration_s": 14.623185873031616, "extra": {"return": -86.09060082279382}}
+{"ts": 1756885357, "game": "LunarLander", "episode": 1, "percent": 91.1023975017432, "steps": 787, "duration_s": 32.96941018104553, "extra": {"return": 173.30719250522958}}
+{"ts": 1756885375, "game": "LunarLander", "episode": 1, "percent": 15.507545939134406, "steps": 430, "duration_s": 18.027061939239502, "extra": {"return": -53.47736218259678}}
+{"ts": 1756885412, "game": "LunarLander", "episode": 1, "percent": 97.63390558858069, "steps": 873, "duration_s": 36.53650617599487, "extra": {"return": 192.9017167657421}}
+{"ts": 1756885564, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 347, "duration_s": 14.555564165115356, "extra": {"return": 243.30404212269588}}
+{"ts": 1756885580, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 384, "duration_s": 16.0709547996521, "extra": {"return": 232.85507227284623}}
+{"ts": 1756885595, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 344, "duration_s": 14.405809164047241, "extra": {"return": 245.60856750591194}}
+{"ts": 1756885610, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 322, "duration_s": 14.41183590888977, "extra": {"return": 231.78364611746397}}
+{"ts": 1756885630, "game": "LunarLander", "episode": 1, "percent": 80.501363500693, "steps": 490, "duration_s": 20.53630304336548, "extra": {"return": 141.504090502079}}
+{"ts": 1756885784, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 382, "duration_s": 15.994470834732056, "extra": {"return": 249.91583728568662}}
+{"ts": 1756885797, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 299, "duration_s": 12.519414186477661, "extra": {"return": 241.91391901174183}}
+{"ts": 1756885809, "game": "LunarLander", "episode": 1, "percent": 28.410410513025834, "steps": 281, "duration_s": 11.757019996643066, "extra": {"return": -14.768768460922487}}
+{"ts": 1756885850, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 957, "duration_s": 41.02786684036255, "extra": {"return": 208.1226258483996}}
+{"ts": 1756885866, "game": "LunarLander", "episode": 1, "percent": 98.86837172809226, "steps": 378, "duration_s": 15.833795070648193, "extra": {"return": 196.60511518427677}}
+{"ts": 1756886044, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 373, "duration_s": 15.627041101455688, "extra": {"return": 232.4981958338168}}
+{"ts": 1756886063, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 443, "duration_s": 18.574074029922485, "extra": {"return": 216.60242760498}}
+{"ts": 1756886080, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 412, "duration_s": 17.250321865081787, "extra": {"return": 238.1425367067856}}
+{"ts": 1756886096, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 371, "duration_s": 15.526277780532837, "extra": {"return": 247.98164818175545}}
+{"ts": 1756886113, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 385, "duration_s": 16.118292331695557, "extra": {"return": 238.13548333088028}}
+{"ts": 1756886481, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 358, "duration_s": 16.851850032806396, "extra": {"return": 236.83542518324467}}
+{"ts": 1756886525, "game": "LunarLander", "episode": 1, "percent": 76.11659036843314, "steps": 1000, "duration_s": 42.88268184661865, "extra": {"return": 128.3497711052994}}
+{"ts": 1756886542, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 391, "duration_s": 17.28904390335083, "extra": {"return": 233.97198544593735}}
+{"ts": 1756886563, "game": "LunarLander", "episode": 1, "percent": 82.93467227782656, "steps": 498, "duration_s": 20.85187315940857, "extra": {"return": 148.80401683347966}}
+{"ts": 1756886577, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 339, "duration_s": 14.196051120758057, "extra": {"return": 205.17813362072746}}
+{"ts": 1756886822, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 836, "duration_s": 35.0130090713501, "extra": {"return": 210.28147276250016}}
+{"ts": 1756886838, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 396, "duration_s": 16.590099096298218, "extra": {"return": 249.26288806869866}}
+{"ts": 1756886855, "game": "LunarLander", "episode": 1, "percent": 99.63779217650612, "steps": 393, "duration_s": 16.46385097503662, "extra": {"return": 198.91337652951836}}
+{"ts": 1756886961, "game": "LunarLander", "episode": 1, "percent": 100.0, "steps": 476, "duration_s": 20.871918201446533, "extra": {"return": 223.4186166522084}}
+{"ts": 1756886972, "game": "LunarLander", "episode": 1, "percent": 18.852075847002876, "steps": 263, "duration_s": 11.001339197158813, "extra": {"return": -43.443772458991376}}
+{"ts": 1756886993, "game": "LunarLander", "episode": 1, "percent": 95.92217375125131, "steps": 487, "duration_s": 20.388636827468872, "extra": {"return": 187.76652125375392}}
