@@ -1,0 +1,27 @@
+{
+  "id": "snake",
+  "display_name": "Snake",
+  "app_path": "/Applications/iSnake.app",
+  "region": [
+    0,
+    0,
+    800,
+    600
+  ],
+  "fps": 5,
+  "actions": {
+    "left": [
+      "left"
+    ],
+    "right": [
+      "right"
+    ],
+    "up": [
+      "up"
+    ],
+    "down": [
+      "down"
+    ]
+  },
+  "engine": "desktop_env"
+}

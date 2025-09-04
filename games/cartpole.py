@@ -1,5 +1,6 @@
 import time, argparse, json, numpy as np, gymnasium as gym
 from stable_baselines3 import PPO
+from stable_baselines3.common.callbacks import BaseCallback
 import sys, os
 from pathlib import Path
 
@@ -53,7 +54,7 @@ def _eval_percent_cartpole(model, n_episodes=5):
     return float(np.mean(scores))
 
 
-def train(timesteps, log):
+def train(timesteps, log, progress=None):
     models, best, meta, cand = _paths()
     env = gym.make("CartPole-v1")
     if best.exists():
@@ -62,7 +63,43 @@ def train(timesteps, log):
     else:
         model = PPO("MlpPolicy", env, verbose=1)
         log("Neues Modell...")
-    model.learn(total_timesteps=int(timesteps))
+
+    class _ProgressCB(BaseCallback):
+        def __init__(self, total_steps, cb_fn):
+            super().__init__()
+            self.total = int(max(1, total_steps))
+            self.cb_fn = cb_fn
+            self._last = -1
+
+        def _on_training_start(self) -> None:
+            if self.cb_fn:
+                try:
+                    self.cb_fn(0)
+                except Exception:
+                    pass
+            return True
+
+        def _on_step(self) -> bool:
+            if not self.cb_fn:
+                return True
+            pct = int(min(100, (100 * self.num_timesteps) // self.total))
+            if pct != self._last:
+                try:
+                    self.cb_fn(pct)
+                except Exception:
+                    pass
+                self._last = pct
+            return True
+
+    model.learn(
+        total_timesteps=int(timesteps),
+        callback=_ProgressCB(int(timesteps), progress),
+    )
+    if progress:
+        try:
+            progress(100)
+        except Exception:
+            pass
     model.save(str(cand))
     env.close()
     new_score = _eval_percent_cartpole(PPO.load(str(cand), env=gym.make("CartPole-v1")))

@@ -20,6 +20,7 @@ from PyQt6.QtWidgets import (
     QInputDialog,
     QLineEdit,
     QMessageBox,
+    QFileDialog,
 )
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -29,10 +30,12 @@ GAMES_DIR = BASE / "games"
 LOG_DIR = BASE / "logs"
 LOG_FILE = LOG_DIR / "results.jsonl"
 CUR_FILE = LOG_DIR / "current.json"
+CONFIGS_DIR = BASE / "configs"
 
 # Ensure directories exist
 GAMES_DIR.mkdir(parents=True, exist_ok=True)
 LOG_DIR.mkdir(parents=True, exist_ok=True)
+CONFIGS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def import_game(path):
@@ -334,6 +337,9 @@ class Launcher(QWidget):
         self.btn_reload = QPushButton("Reload Spiele")
         self.btn_reload.clicked.connect(self.reload_games)
         r1.addWidget(self.btn_reload)
+        self.btn_add_desktop = QPushButton("Desktop-Spiel hinzufügen")
+        self.btn_add_desktop.clicked.connect(self.add_desktop_game)
+        r1.addWidget(self.btn_add_desktop)
         v.addLayout(r1)
         r2 = QHBoxLayout()
         r2.addWidget(QLabel("Timesteps"))
@@ -392,10 +398,289 @@ class Launcher(QWidget):
         self.progress_format.connect(self.progress.setFormat)
         self.status_text.connect(self.lbl_status.setText)
 
+    def _ensure_desktop_engine(self):
+        """Create games/desktop_env.py if it does not yet exist."""
+        try:
+            eng_path = GAMES_DIR / "desktop_env.py"
+            if eng_path.exists():
+                return
+            code = """
+import os, time, json
+from pathlib import Path
+import numpy as np
+try:
+    import mss
+    import pyautogui
+    import cv2
+    import gymnasium as gym
+    from gymnasium import spaces
+    from stable_baselines3 import PPO
+    from stable_baselines3.common.vec_env import DummyVecEnv
+except Exception as e:
+    raise RuntimeError(f"Fehlende Abhängigkeiten für Desktop-Engine: {e}")
+
+BASE = Path(__file__).resolve().parent.parent
+LOG_DIR = BASE / "logs"
+CUR_FILE = LOG_DIR / "current.json"
+LOG_FILE = LOG_DIR / "results.jsonl"
+
+class DesktopEnv(gym.Env):
+    metadata = {"render_modes": ["human"]}
+    def __init__(self, config):
+        super().__init__()
+        self.cfg = config
+        self.region = tuple(int(x) for x in self.cfg.get("region", [0,0,400,300]))
+        self.fps = int(self.cfg.get("fps", 5))
+        self.keys = list(self.cfg.get("actions", {}).keys())
+        if not self.keys:
+            self.keys = ["noop"]
+        self.action_space = spaces.Discrete(len(self.keys))
+        self.observation_space = spaces.Box(low=0, high=255, shape=(84,84,1), dtype=np.uint8)
+        self._sct = mss.mss()
+        self._last = None
+        self._t_last = time.time()
+
+    def _grab(self):
+        x,y,w,h = self.region
+        img = np.array(self._sct.grab({"left":x, "top":y, "width":w, "height":h}))
+        img = img[:,:,:3]
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.resize(img, (84,84), interpolation=cv2.INTER_AREA)
+        return img[...,None]
+
+    def _send_action(self, idx):
+        key = self.keys[idx]
+        if key == "noop":
+            return
+        seq = self.cfg.get("actions", {}).get(key, [])
+        for k in seq:
+            pyautogui.keyDown(k)
+        for k in reversed(seq):
+            pyautogui.keyUp(k)
+
+    def reset(self, *, seed=None, options=None):
+        super().reset(seed=seed)
+        obs = self._grab()
+        self._last = obs
+        return obs, {}
+
+    def step(self, action):
+        self._send_action(int(action))
+        dt = max(1.0/self.fps - (time.time()-self._t_last), 0)
+        if dt > 0:
+            time.sleep(dt)
+        self._t_last = time.time()
+        obs = self._grab()
+        if self._last is None:
+            rew = 0.0
+        else:
+            dif = np.abs(obs.astype(np.int32) - self._last.astype(np.int32)).mean()
+            rew = float(dif / 255.0)
+        self._last = obs
+        terminated = False
+        truncated = False
+        return obs, rew, terminated, truncated, {}
+
+
+def _load_config(cfg_path: str):
+    with open(cfg_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def train(timesteps: int, log, *, progress=None):
+    cfg_path = os.environ.get("DESKTOP_CFG")
+    if not cfg_path:
+        raise RuntimeError("DESKTOP_CFG nicht gesetzt.")
+    cfg = _load_config(cfg_path)
+    env = DummyVecEnv([lambda: DesktopEnv(cfg)])
+    model = PPO("CnnPolicy", env, verbose=0)
+
+    chunks = max(1, timesteps // 1000)
+    done = 0
+    if progress:
+        progress(0)
+    for i in range(chunks):
+        step = 1000 if i < chunks-1 else timesteps-done
+        if step <= 0:
+            break
+        model.learn(total_timesteps=step, progress_bar=False)
+        done += step
+        pct = int(min(100, (100*done)//max(1,timesteps)))
+        if progress:
+            progress(pct)
+
+    env2 = DesktopEnv(cfg)
+    tot = 0.0
+    n = 0
+    obs,_ = env2.reset()
+    for _ in range(100):
+        a = env2.action_space.sample()
+        obs, r, term, trunc, _ = env2.step(a)
+        tot += r
+        n += 1
+    avg = (tot/max(1,n))*100.0
+    rec = {"ts": int(time.time()), "game": cfg.get("display_name","Desktop"), "episode": 0, "percent": float(avg), "steps": int(done)}
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    with open(CUR_FILE, "w", encoding="utf-8") as f:
+        json.dump(rec, f)
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
+        f.write(json.dumps(rec)+"\n")
+    log(f"Train done: ~{avg:.1f}%")
+
+if __name__ == "__main__":
+    import argparse
+    p = argparse.ArgumentParser()
+    p.add_argument("--eval", type=int, default=3)
+    p.add_argument("--cfg", type=str, required=True)
+    args = p.parse_args()
+    cfg = _load_config(args.cfg)
+    env = DesktopEnv(cfg)
+    import random
+    for ep in range(args.eval):
+        tot = 0.0
+        obs,_ = env.reset()
+        for t in range(120):
+            a = random.randrange(env.action_space.n)
+            obs, r, term, trunc, _ = env.step(a)
+            tot += r
+            if term or trunc:
+                break
+        avg = tot/ max(1,t+1) * 100.0
+        rec = {"ts": int(time.time()), "game": cfg.get("display_name","Desktop"), "episode": ep+1, "percent": float(avg), "steps": int(t+1)}
+        with open(CUR_FILE, "w", encoding="utf-8") as f:
+            json.dump(rec, f)
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(json.dumps(rec)+"\n")
+            print(f"Eval Ep {ep+1}: {avg:.1f}% ({t+1} steps)")
+"""
+            eng_path.write_text(code.strip() + "\n", encoding="utf-8")
+        except Exception as e:
+            self.append(f"Fehler beim Anlegen der Desktop-Engine: {e}")
+
+    def add_desktop_game(self):
+        try:
+            game_id, ok = self._prompt_text(
+                "Neues Desktop-Spiel", "Eindeutige ID (z.B. zelda):"
+            )
+            if not ok or not game_id:
+                return
+            display, ok = self._prompt_text(
+                "Neues Desktop-Spiel", "Anzeigename (z.B. The Legend of Zelda):"
+            )
+            if not ok or not display:
+                return
+            # App/Bundle auswählen (optional). macOS-Apps sind ".app"-Pakete
+            file_path, _ = QFileDialog.getOpenFileName(
+                self,
+                "App auswählen (optional)",
+                "/Applications",
+                "Applications (*.app);;Alle Dateien (*)",
+            )
+            app_path = file_path or ""
+            # Wenn Dialog abgebrochen wird, bleibt app_path ggf. leer (ist okay)
+            region_txt, ok = self._prompt_text(
+                "Bildschirm-Region", "x,y,w,h (z.B. 100,100,800,600):", "0,0,800,600"
+            )
+            if not ok or not region_txt:
+                return
+            try:
+                rx, ry, rw, rh = [int(s.strip()) for s in region_txt.split(",")]
+            except Exception:
+                QMessageBox.warning(
+                    self, "Eingabe", "Ungültige Region. Erwartet: x,y,w,h"
+                )
+                return
+            fps_txt, ok = self._prompt_text("FPS", "Erfassungs-FPS (z.B. 5):", "5")
+            if not ok or not fps_txt:
+                return
+            try:
+                fps = max(1, int(fps_txt))
+            except Exception:
+                QMessageBox.warning(self, "Eingabe", "Ungültige FPS.")
+                return
+            actions_txt, ok = self._prompt_text(
+                "Tasten-Aktionen",
+                "Mapping im Format key=comma_getrennte_tasten; mehrere durch |.\nBeispiel: left=a | right=d | jump=space | attack=j,k",
+                "left=a | right=d | up=w | down=s | jump=space",
+            )
+            if not ok:
+                return
+            actions = {}
+            for part in actions_txt.split("|"):
+                part = part.strip()
+                if not part:
+                    continue
+                if "=" not in part:
+                    continue
+                k, v = part.split("=", 1)
+                seq = [t.strip() for t in v.split(",") if t.strip()]
+                actions[k.strip()] = seq
+
+            cfg = {
+                "id": game_id,
+                "display_name": display,
+                "app_path": app_path,
+                "region": [rx, ry, rw, rh],
+                "fps": fps,
+                "actions": actions,
+                "engine": "desktop_env",
+            }
+            cfg_path = CONFIGS_DIR / f"{game_id}.json"
+            if cfg_path.exists():
+                QMessageBox.warning(
+                    self, "Vorhanden", f"Config existiert bereits: {cfg_path.name}"
+                )
+                return
+            cfg_path.write_text(
+                json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+
+            self._ensure_desktop_engine()
+
+            stub_path = GAMES_DIR / f"desktop_{game_id}.py"
+            if stub_path.exists():
+                QMessageBox.warning(
+                    self, "Vorhanden", f"Stub existiert bereits: {stub_path.name}"
+                )
+                return
+            stub_code = f"""
+import os, sys
+from pathlib import Path
+from importlib import import_module
+
+GAME_NAME = {cfg['display_name']!r}
+
+# We only proxy to the generic desktop engine. You never need to edit this file.
+
+def train(timesteps: int, log, *, progress=None):
+    os.environ["DESKTOP_CFG"] = str(Path(__file__).resolve().parent.parent / "configs" / ("{cfg['id']}.json"))
+    eng = import_module("games.desktop_env")
+    return eng.train(timesteps, log, progress=progress)
+
+if __name__ == "__main__":
+    import argparse
+    p = argparse.ArgumentParser()
+    p.add_argument("--eval", type=int, default=3)
+    args = p.parse_args()
+    cfg_path = Path(__file__).resolve().parent.parent / "configs" / "{cfg['id']}.json"
+    os.environ["DESKTOP_CFG"] = str(cfg_path)
+    target = Path(__file__).resolve().parent / "desktop_env.py"
+    os.execv(sys.executable, [sys.executable, str(target), "--eval", str(args.eval), "--cfg", str(cfg_path)])
+"""
+            stub_path.write_text(stub_code.strip() + "\n", encoding="utf-8")
+
+            self.append(f"Desktop-Config angelegt: {cfg_path.name}")
+            self.append(f"Stub erstellt: {stub_path.name}")
+            self.reload_games()
+            QMessageBox.information(self, "Fertig", "Desktop-Spiel wurde hinzugefügt.")
+        except Exception as e:
+            QMessageBox.critical(self, "Fehler", str(e))
+
     def append(self, msg):
         self.log_msg.emit(msg)
 
     def reload_games(self):
+        self._ensure_desktop_engine()
         self.games = scan_games()
         self.cb.clear()
         self.cb.addItems([g.GAME_NAME for g in self.games])
