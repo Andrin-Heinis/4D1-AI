@@ -1,4 +1,5 @@
 import sys, os, threading, subprocess, importlib.util, time, json, inspect
+import shutil
 from pathlib import Path
 from PyQt6.QtCore import QTimer, Qt, pyqtSignal
 from PyQt6.QtWidgets import (
@@ -616,6 +617,97 @@ if __name__ == "__main__":
                 seq = [t.strip() for t in v.split(",") if t.strip()]
                 actions[k.strip()] = seq
 
+            # --- Autostart-Schritte während der Registrierung hinzufügen ---
+            aut_templates: list[dict] = []
+            aut_clicks: list[list[int]] = []
+            aut_keys: list[str] = []
+            tdir = CONFIGS_DIR / "templates" / game_id
+            tdir.mkdir(parents=True, exist_ok=True)
+
+            while True:
+                choice, ok = QInputDialog.getItem(
+                    self,
+                    "Autostart",
+                    "Schritt hinzufügen (Abbrechen = fertig):",
+                    [
+                        "Template: wait+click",
+                        "Template: click",
+                        "Template: wait",
+                        "Keys: press",
+                    ],
+                    0,
+                    False,
+                )
+                if not ok:
+                    break
+
+                if choice.startswith("Template"):
+                    src_path, _ = QFileDialog.getOpenFileName(
+                        self,
+                        "Button-Screenshot wählen (PNG/JPG)",
+                        str(Path.home() / "Downloads"),
+                        "Bilder (*.png *.jpg *.jpeg);;Alle Dateien (*)",
+                    )
+                    if not src_path:
+                        continue
+                    src = Path(src_path)
+                    dst = tdir / src.name
+                    try:
+                        shutil.copyfile(src, dst)
+                    except Exception as e:
+                        QMessageBox.critical(self, "Kopieren fehlgeschlagen", str(e))
+                        continue
+                    rel_path = str(Path("configs") / "templates" / game_id / src.name)
+
+                    thr_txt, ok = self._prompt_text(
+                        "Threshold", "Schwellwert 0..1 (Standard 0.87):", "0.87"
+                    )
+                    try:
+                        thr = float(thr_txt) if ok else 0.87
+                    except Exception:
+                        thr = 0.87
+
+                    to_txt, ok = self._prompt_text(
+                        "Timeout", "Max. Wartezeit in Sekunden (Standard 8):", "8"
+                    )
+                    try:
+                        to = float(to_txt) if ok else 8.0
+                    except Exception:
+                        to = 8.0
+
+                    off_txt, ok = self._prompt_text(
+                        "Offset", "Offset dx,dy (optional, z.B. 0,0):", "0,0"
+                    )
+                    try:
+                        dx, dy = (
+                            [int(x.strip()) for x in off_txt.split(",")]
+                            if ok
+                            else (0, 0)
+                        )
+                    except Exception:
+                        dx, dy = 0, 0
+
+                    # Hinweis: Im Legacy-Template-Schema wird standardmäßig gewartet und dann geklickt,
+                    # deshalb behandeln wir alle Template-Varianten identisch.
+                    aut_templates.append(
+                        {
+                            "path": rel_path,
+                            "threshold": thr,
+                            "max_wait": to,
+                            "offset": [dx, dy],
+                        }
+                    )
+
+                elif choice.startswith("Keys"):
+                    keys_txt, ok = self._prompt_text(
+                        "Keys", "Tasten, komma-getrennt (z.B. enter,space)"
+                    )
+                    if not ok or not keys_txt:
+                        continue
+                    aut_keys.extend(
+                        [k.strip() for k in keys_txt.split(",") if k.strip()]
+                    )
+
             cfg = {
                 "id": game_id,
                 "display_name": display,
@@ -624,6 +716,11 @@ if __name__ == "__main__":
                 "fps": fps,
                 "actions": actions,
                 "engine": "desktop_env",
+                "autostart": {
+                    "templates": aut_templates,
+                    "clicks": aut_clicks,
+                    "keys": aut_keys,
+                },
             }
             cfg_path = CONFIGS_DIR / f"{game_id}.json"
             if cfg_path.exists():

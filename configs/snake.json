@@ -2,26 +2,31 @@
   "id": "snake",
   "display_name": "Snake",
   "app_path": "/Applications/iSnake.app",
-  "region": [
-    0,
-    0,
-    800,
-    600
-  ],
+  "region": [0, 0, 800, 600],
   "fps": 5,
   "actions": {
-    "left": [
-      "left"
-    ],
-    "right": [
-      "right"
-    ],
-    "up": [
-      "up"
-    ],
-    "down": [
-      "down"
-    ]
+    "left": ["left"],
+    "right": ["right"],
+    "up": ["up"],
+    "down": ["down"]
   },
-  "engine": "desktop_env"
+  "engine": "desktop_env",
+  "autostart": {
+    "templates": [
+      {
+        "path": "configs/templates/snake/easy.png",
+        "threshold": 0.87,
+        "max_wait": 5.0,
+        "offset": [0, 0]
+      },
+      {
+        "path": "configs/templates/snake/play_again.png",
+        "threshold": 0.8,
+        "max_wait": 3.0,
+        "offset": [0, 0]
+      }
+    ],
+    "clicks": [],
+    "keys": []
+  }
 }

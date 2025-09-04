@@ -1,0 +1,35 @@
+{
+  "id": "sadwd",
+  "display_name": "dawdsa",
+  "app_path": "/Applications/Blackmagic Proxy Generator Lite.app",
+  "region": [
+    0,
+    0,
+    800,
+    600
+  ],
+  "fps": 5,
+  "actions": {
+    "left": [
+      "a"
+    ],
+    "right": [
+      "d"
+    ],
+    "up": [
+      "w"
+    ],
+    "down": [
+      "s"
+    ],
+    "jump": [
+      "space"
+    ]
+  },
+  "engine": "desktop_env",
+  "autostart": {
+    "templates": [],
+    "clicks": [],
+    "keys": []
+  }
+}
